@@ -1,0 +1,4 @@
+name: ExamplePlugin
+version: '${project.version}'
+main: me.andreasmelone.exampleplugin.ExamplePlugin
+api-version: '1.19'
