@@ -1,6 +1,7 @@
 package me.andreasmelone.amutillib.items;
 
-import me.andreasmelone.amutillib.items.execute.OnInteractRunnable;
+import me.andreasmelone.amutillib.items.events.OnBlockBreakRunnable;
+import me.andreasmelone.amutillib.items.events.OnInteractRunnable;
 import me.andreasmelone.amutillib.registry.Registrable;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -19,15 +20,17 @@ public class AMItem implements Registrable {
     private final Material material;
     private final int customModelData;
     private final OnInteractRunnable onInteract;
+    private final OnBlockBreakRunnable onBlockBreak;
 
     protected AMItem(NamespacedKey key, String name, String[] lore, Material material,
-                     int customModelData, OnInteractRunnable onInteract) {
+                     int customModelData, OnInteractRunnable onInteract, OnBlockBreakRunnable onBlockBreak) {
         this.key = key;
         this.name = name;
         this.lore = lore;
         this.material = material;
         this.customModelData = customModelData;
         this.onInteract = onInteract;
+        this.onBlockBreak = onBlockBreak;
     }
 
     @Nonnull
@@ -54,6 +57,10 @@ public class AMItem implements Registrable {
 
     public OnInteractRunnable getOnInteract() {
         return onInteract;
+    }
+
+    public OnBlockBreakRunnable getOnBlockBreak() {
+        return onBlockBreak;
     }
 
     public ItemStack createItemStack() {

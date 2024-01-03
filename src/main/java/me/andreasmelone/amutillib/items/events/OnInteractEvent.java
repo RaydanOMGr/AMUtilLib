@@ -1,16 +1,17 @@
-package me.andreasmelone.amutillib.items.execute;
+package me.andreasmelone.amutillib.items.events;
 
 import me.andreasmelone.amutillib.items.AMItem;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class OnExecuteEvent {
+public class OnInteractEvent implements Cancellable {
     private final Player player;
     private final Entity interactedEntity;
     private final Block interactedBlock;
@@ -18,8 +19,10 @@ public class OnExecuteEvent {
     private final ItemStack item;
     private final AMItem amItem;
 
-    public OnExecuteEvent(Player player, Entity interactedEntity, Block interactedBlock,
-                          EquipmentSlot hand, ItemStack item, AMItem amItem) {
+    private boolean cancelled = false;
+
+    public OnInteractEvent(Player player, Entity interactedEntity, Block interactedBlock,
+                           EquipmentSlot hand, ItemStack item, AMItem amItem) {
         this.player = player;
         this.interactedBlock = interactedBlock;
         this.interactedEntity = interactedEntity;
@@ -56,5 +59,15 @@ public class OnExecuteEvent {
     @Nonnull
     public AMItem getAMItem() {
         return amItem;
+    }
+
+    @Override
+    public boolean isCancelled() {
+        return cancelled;
+    }
+
+    @Override
+    public void setCancelled(boolean b) {
+        this.cancelled = b;
     }
 }
