@@ -1,15 +1,24 @@
 package me.andreasmelone.amutillib.items;
 
+import me.andreasmelone.amutillib.items.execute.OnInteractRunnable;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class ItemBuilder {
-    private String id;
+    private NamespacedKey key;
     private String name;
     private String[] lore;
     private Material material;
+    private int customModelData = -1;
+    private OnInteractRunnable onInteract;
 
-    public ItemBuilder setId(String id) {
-        this.id = id;
+    public ItemBuilder setKey(JavaPlugin plugin, String id) {
+        return setKey(new NamespacedKey(plugin, id));
+    }
+
+    public ItemBuilder setKey(NamespacedKey key) {
+        this.key = key;
         return this;
     }
 
@@ -33,10 +42,27 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder setCustomModelData(int customModelData) {
+        this.customModelData = customModelData;
+        return this;
+    }
+
+    public ItemBuilder onInteract(OnInteractRunnable onInteract) {
+        this.onInteract = onInteract;
+        return this;
+    }
+
     public AMItem build() {
-        if(id == null) throw new IllegalArgumentException("id must not be null");
+        if(key == null) throw new IllegalArgumentException("id must not be null");
         if(material == null) throw new IllegalArgumentException("material must not be null");
 
-        return new AMItem(id, name, lore, material);
+        if(onInteract == null) onInteract = (event) -> {};
+
+        return new AMItem(key, name, lore, material, customModelData,
+                onInteract);
+    }
+
+    public static ItemBuilder createBuilder(JavaPlugin plugin, String id) {
+        return new ItemBuilder().setKey(new NamespacedKey(plugin, id));
     }
 }

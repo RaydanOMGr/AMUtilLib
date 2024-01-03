@@ -1,28 +1,24 @@
 package me.andreasmelone.amutillib;
 
-import me.andreasmelone.amutillib.registry.Registry;
+import me.andreasmelone.amutillib.commands.GiveItemCommand;
+import me.andreasmelone.amutillib.listeners.ItemEventsListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-
 public class AMUtilLib {
-    protected final HashMap<JavaPlugin, PluginRegister> pluginRegisters = new HashMap<>();
-    protected final HashMap<PluginRegister, List<Registry<?>>> registries = new HashMap<>();
     private static final AMUtilLib INSTANCE = new AMUtilLib();
 
-    private AMUtilLib() {
+    public void registerEvents(JavaPlugin plugin) {
+        plugin.getServer().getPluginManager().registerEvents(new ItemEventsListener(), plugin);
     }
 
-    public PluginRegister getRegister(JavaPlugin plugin) {
-        if (pluginRegisters.containsKey(plugin)) {
-            return pluginRegisters.get(plugin);
+    public void registerGiveCommand(JavaPlugin plugin, String commandName) {
+        if(plugin.getCommand(commandName) == null) {
+            plugin.getLogger().warning("[AMUtilLib] Could not register command " + commandName + " for plugin " + plugin.getName() + " because it does not exist");
+            plugin.getLogger().warning("[AMUtilLib] Please make sure to register the command in your plugin.yml");
+            return;
         }
-        PluginRegister pluginRegister = new PluginRegister(plugin);
-        pluginRegisters.put(plugin, pluginRegister);
-        registries.put(pluginRegister, new LinkedList<>());
-        return pluginRegister;
+        plugin.getCommand(commandName).setExecutor(new GiveItemCommand());
+        plugin.getCommand(commandName).setTabCompleter(new GiveItemCommand());
     }
 
     public static AMUtilLib getInstance() {
