@@ -71,6 +71,7 @@
             <groupId>me.andreasmelone</groupId>
             <artifactId>AMUtilLib</artifactId>
             <version>1.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

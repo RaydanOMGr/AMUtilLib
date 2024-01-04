@@ -6,11 +6,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class ExamplePlugin extends JavaPlugin {
     @Override
     public void onEnable() {
-        Items.register();
+        if(getServer().getPluginManager().getPlugin("AMUtilLib") == null) {
+            getLogger().severe("AMUtilLib not found! Disabling plugin...");
+            getLogger().severe("Download it here: https://github.com/RaydanOMGr/AMUtilLib/releases");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
 
-        // Plugin startup logic
-        AMUtilLib.getInstance().registerEvents(this);
-        AMUtilLib.getInstance().registerCommands();
+        Items.register();
     }
 
     @Override

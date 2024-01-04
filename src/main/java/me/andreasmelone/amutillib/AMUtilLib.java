@@ -6,15 +6,19 @@ import me.andreasmelone.amutillib.listeners.ItemEventsListener;
 import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class AMUtilLib {
-    private static final AMUtilLib INSTANCE = new AMUtilLib();
+public final class AMUtilLib extends JavaPlugin {
+    @Override
+    public void onEnable() {
+        registerEvents(this);
+        registerCommands();
+    }
 
-    public void registerEvents(JavaPlugin plugin) {
+    private void registerEvents(JavaPlugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(new ItemEventsListener(), plugin);
         //plugin.getServer().getPluginManager().registerEvents(new CommandEventsListener(plugin), plugin);
     }
 
-    public void registerCommands() {
+    private void registerCommands() {
         CommandMap commandMap = CommandUtil.getCommandMap();
         if(commandMap == null) return;
         if(commandMap.getCommand("giveitem") != null) return;
@@ -23,6 +27,6 @@ public class AMUtilLib {
     }
 
     public static AMUtilLib getInstance() {
-        return INSTANCE;
+        return getPlugin(AMUtilLib.class);
     }
 }
