@@ -24,16 +24,19 @@ jobs:
     - name: Set up JDK 8
       uses: actions/setup-java@v3
       with:
-        java-version: '17'
+        java-version: '8'
         distribution: 'temurin'
         cache: maven
 
-    - name: Run BuildTools
-      run: |
-        wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
-        java -jar BuildTools.jar --rev 1.19.4 --remapped
+#    - name: Run BuildTools
+#      run: |
+#        wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+#        java -jar BuildTools.jar --rev 1.19.4 --remapped
+
     - name: Build Library
-      run: mvn -B package --file pom.xml
+      run: |
+        mvn -B package --file pom.xml
+        mvn -B install --file pom.xml
       
     - name: Build Example Plugin
       run: |
