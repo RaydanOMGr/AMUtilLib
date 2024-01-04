@@ -6,16 +6,21 @@ import org.bukkit.entity.Player;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Util {
     public static List<String> getPlayersWithArgument(String argument) {
-        List<String> players = new LinkedList<>();
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            if(player.getName().toLowerCase().startsWith(argument.toLowerCase())) {
-                players.add(player.getName());
+        return getElementsWithArgument(Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList()), argument);
+    }
+
+    public static List<String> getElementsWithArgument(List<String> elements, String argument) {
+        List<String> elementsWithArgument = new LinkedList<>();
+        for(String element : elements) {
+            if(element.toLowerCase().startsWith(argument.toLowerCase())) {
+                elementsWithArgument.add(element);
             }
         }
-        return players;
+        return elementsWithArgument;
     }
 
     public static String transform(String message) {

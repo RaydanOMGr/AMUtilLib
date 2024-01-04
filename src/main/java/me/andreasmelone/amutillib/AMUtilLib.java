@@ -1,7 +1,9 @@
 package me.andreasmelone.amutillib;
 
 import me.andreasmelone.amutillib.commands.GiveItemCommand;
+import me.andreasmelone.amutillib.utils.CommandUtil;
 import me.andreasmelone.amutillib.listeners.ItemEventsListener;
+import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class AMUtilLib {
@@ -9,16 +11,15 @@ public class AMUtilLib {
 
     public void registerEvents(JavaPlugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(new ItemEventsListener(), plugin);
+        //plugin.getServer().getPluginManager().registerEvents(new CommandEventsListener(plugin), plugin);
     }
 
-    public void registerGiveCommand(JavaPlugin plugin, String commandName) {
-        if(plugin.getCommand(commandName) == null) {
-            plugin.getLogger().warning("[AMUtilLib] Could not register command " + commandName + " for plugin " + plugin.getName() + " because it does not exist");
-            plugin.getLogger().warning("[AMUtilLib] Please make sure to register the command in your plugin.yml");
-            return;
-        }
-        plugin.getCommand(commandName).setExecutor(new GiveItemCommand());
-        plugin.getCommand(commandName).setTabCompleter(new GiveItemCommand());
+    public void registerCommands() {
+        CommandMap commandMap = CommandUtil.getCommandMap();
+        if(commandMap == null) return;
+        if(commandMap.getCommand("giveitem") != null) return;
+
+        CommandUtil.registerCommands(CommandUtil.toCommand(new GiveItemCommand(), "giveitem"));
     }
 
     public static AMUtilLib getInstance() {

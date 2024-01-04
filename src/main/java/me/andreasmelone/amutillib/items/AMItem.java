@@ -12,6 +12,8 @@ import org.bukkit.persistence.PersistentDataType;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class AMItem implements Registrable {
     private final NamespacedKey key;
@@ -19,18 +21,16 @@ public class AMItem implements Registrable {
     private final String[] lore;
     private final Material material;
     private final int customModelData;
-    private final OnInteractRunnable onInteract;
-    private final OnBlockBreakRunnable onBlockBreak;
+    private final List<OnInteractRunnable> onInteract = new LinkedList<>();
+    private final List<OnBlockBreakRunnable> onBlockBreak = new LinkedList<>();
 
     protected AMItem(NamespacedKey key, String name, String[] lore, Material material,
-                     int customModelData, OnInteractRunnable onInteract, OnBlockBreakRunnable onBlockBreak) {
+                     int customModelData) {
         this.key = key;
         this.name = name;
         this.lore = lore;
         this.material = material;
         this.customModelData = customModelData;
-        this.onInteract = onInteract;
-        this.onBlockBreak = onBlockBreak;
     }
 
     @Nonnull
@@ -55,11 +55,19 @@ public class AMItem implements Registrable {
         return customModelData;
     }
 
-    public OnInteractRunnable getOnInteract() {
+    public void onInteract(OnInteractRunnable runnable) {
+        onInteract.add(runnable);
+    }
+
+    public void onBlockBreak(OnBlockBreakRunnable runnable) {
+        onBlockBreak.add(runnable);
+    }
+
+    public List<OnInteractRunnable> getOnInteract() {
         return onInteract;
     }
 
-    public OnBlockBreakRunnable getOnBlockBreak() {
+    public List<OnBlockBreakRunnable> getOnBlockBreak() {
         return onBlockBreak;
     }
 

@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GiveItemCommand implements TabExecutor {
     @Override
@@ -51,12 +52,13 @@ public class GiveItemCommand implements TabExecutor {
             tabComplete.addAll(Util.getPlayersWithArgument(args[0]));
         }
         if(args.length == 2) {
-            List<AMItem> items = new LinkedList<>(ItemRegister.getInstance().getRegisteredItems().values());
-            for(AMItem item : items) {
-                if(item.getKey().getNamespace().equals(sender.getName())) {
-                    tabComplete.add(item.getKey().toString());
-                }
-            }
+            List<String> items = ItemRegister.getInstance().getRegisteredItems()
+                    .keySet()
+                    .stream()
+                    .map(NamespacedKey::toString)
+                    .collect(Collectors.toCollection(LinkedList::new));
+            items = Util.getElementsWithArgument(items, args[1]);
+            tabComplete.addAll(items);
         }
 
         return tabComplete;
