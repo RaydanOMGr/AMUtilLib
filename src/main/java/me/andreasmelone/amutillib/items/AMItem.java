@@ -2,6 +2,7 @@ package me.andreasmelone.amutillib.items;
 
 import me.andreasmelone.amutillib.items.events.*;
 import me.andreasmelone.amutillib.registry.Registrable;
+import me.andreasmelone.amutillib.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -14,6 +15,7 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AMItem implements Registrable {
     private final NamespacedKey key;
@@ -97,8 +99,8 @@ public class AMItem implements Registrable {
         );
 
         if(customModelData != -1) meta.setCustomModelData(customModelData);
-        if(name != null) meta.setDisplayName(name);
-        if(lore != null) meta.setLore(Arrays.asList(lore));
+        if(name != null) meta.setDisplayName(Util.transform(name));
+        if(lore != null) meta.setLore(Arrays.stream(lore).map(Util::transform).collect(Collectors.toList()));
 
         item.setItemMeta(meta);
 

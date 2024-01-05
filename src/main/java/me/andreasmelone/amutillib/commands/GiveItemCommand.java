@@ -11,14 +11,13 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.xml.stream.events.Namespace;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class GiveItemCommand implements TabExecutor {
-    private JavaPlugin plugin;
-    private String pluginNamespaceName;
+    private final JavaPlugin plugin;
+    private final String pluginNamespaceName;
     public GiveItemCommand(JavaPlugin plugin) {
         this.plugin = plugin;
         this.pluginNamespaceName = new NamespacedKey(plugin, plugin.getName().toLowerCase())
@@ -70,7 +69,16 @@ public class GiveItemCommand implements TabExecutor {
             List<String> items = ItemRegister.getInstance().getRegisteredItems()
                     .keySet()
                     .stream()
-                    .map(NamespacedKey::getKey)
+                    .map(key -> {
+                        String result;
+                        String[] split = key.toString().split(":");
+                        if(split[0].equals(pluginNamespaceName)) {
+                            result = split[1];
+                        } else {
+                            result = key.toString();
+                        }
+                        return result;
+                    })
                     .collect(Collectors.toCollection(LinkedList::new));
             items = Util.getElementsWithArgument(items, args[1]);
             tabComplete.addAll(items);

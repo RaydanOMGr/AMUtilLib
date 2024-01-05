@@ -4,6 +4,8 @@
 
 command.reload: "&eПерезагружена конфигурация!"
 
-example_item.interact: "&eВы взаимодействовали с примерным предметом!"
+example_item.interact: "&eВы взаимодействовали с %block% с примерным предметом!"
 example_item.block_break: "&eВы сломали %block% примерным предметом!"
 example_item.entity_hit: "&eВы ударили %entity% примерным предметом!"
+
+shit.eaten: "&4Вы только что съели говно!"

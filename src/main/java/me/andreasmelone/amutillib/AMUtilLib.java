@@ -3,7 +3,6 @@ package me.andreasmelone.amutillib;
 import me.andreasmelone.amutillib.commands.GiveItemCommand;
 import me.andreasmelone.amutillib.utils.CommandUtil;
 import me.andreasmelone.amutillib.listeners.ItemEventsListener;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
@@ -14,7 +13,6 @@ public final class AMUtilLib {
 
     public void registerEvents(JavaPlugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(new ItemEventsListener(), plugin);
-        //plugin.getServer().getPluginManager().registerEvents(new CommandEventsListener(plugin), plugin);
     }
 
     @Deprecated

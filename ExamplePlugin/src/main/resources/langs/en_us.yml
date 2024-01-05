@@ -4,6 +4,8 @@
 
 command.reload: "&eReloaded the config!"
 
-example_item.interact: "&eYou interacted with the example item!"
-example_item.block_break: "&eYou broke %block% the example item!"
+example_item.interact: "&eYou interacted with %block% with the example item!"
+example_item.block_break: "&eYou broke %block% with the example item!"
 example_item.entity_hit: "&eYou hit %entity% with the example item!"
+
+shit.eaten: "&4You just ate some shit!"

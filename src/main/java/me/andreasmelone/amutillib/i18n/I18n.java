@@ -33,7 +33,7 @@ public class I18n {
         if(!langFile.isSet(key)) {
             plugin.getLogger().warning("Key " + key + " does not exist in language file " + language + ".yml");
             language = "en_us";
-            return get(key);
+            return key;
         }
 
         return langFile.getString(key);
