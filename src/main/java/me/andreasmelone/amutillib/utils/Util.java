@@ -2,6 +2,7 @@ package me.andreasmelone.amutillib.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.util.LinkedList;
@@ -21,6 +22,10 @@ public class Util {
             }
         }
         return elementsWithArgument;
+    }
+
+    public static String nameFromType(Enum<?> blockType) {
+        return blockType.toString().toLowerCase().replace("_", " ");
     }
 
     public static String transform(String message) {

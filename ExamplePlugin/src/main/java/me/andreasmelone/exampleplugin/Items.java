@@ -5,6 +5,7 @@ import me.andreasmelone.amutillib.items.AMItem;
 import me.andreasmelone.amutillib.items.ItemBuilder;
 import me.andreasmelone.amutillib.registry.ItemRegister;
 import me.andreasmelone.amutillib.registry.RegisteredObject;
+import me.andreasmelone.amutillib.utils.Util;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -47,11 +48,11 @@ public class Items {
                 if(event.getClickedBlock() != null)
                     event.getPlayer().sendMessage(plugin.getI18n().getTransformed(
                             "example_item.interact",
-                            TranslationKey.of("%block%", event.getClickedBlock().getType().toString())
+                            TranslationKey.of("%block%", Util.nameFromType(event.getClickedBlock().getType()))
                     ));
                 else event.getPlayer().sendMessage(plugin.getI18n().getTransformed(
                         "example_item.interact",
-                        TranslationKey.of("%block%", "AIR")
+                        TranslationKey.of("%block%", "nothing")
                 ));
             }
         });
@@ -59,14 +60,14 @@ public class Items {
         exampleItem.get().onBlockBreak((event) -> {
             event.getPlayer().sendMessage(plugin.getI18n().getTransformed(
                     "example_item.block_break",
-                    TranslationKey.of("%block%", event.getBlock().getType().toString())
+                    TranslationKey.of("%block%", Util.nameFromType(event.getBlock().getType()))
             ));
         });
 
         exampleItem.get().onEntityHit((event) -> {
             event.getDamager().sendMessage(plugin.getI18n().getTransformed(
                     "example_item.entity_hit",
-                    TranslationKey.of("%entity%", event.getEntity().getType().toString())
+                    TranslationKey.of("%entity%", Util.nameFromType(event.getEntity().getType()))
             ));
         });
         // EXAMPLE_ITEM END
@@ -80,7 +81,7 @@ public class Items {
             else event.getItem().setAmount(amount -1);
 
             player.sendMessage(plugin.getI18n().getTransformed("shit.eaten"));
-            PotionEffect nausea = new PotionEffect(PotionEffectType.CONFUSION, 5 * 20, 1);
+            PotionEffect nausea = new PotionEffect(PotionEffectType.CONFUSION, 10 * 20, 1);
             player.addPotionEffect(nausea);
         });
         // SHIT END
