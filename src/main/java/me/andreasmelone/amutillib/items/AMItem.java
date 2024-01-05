@@ -1,9 +1,6 @@
 package me.andreasmelone.amutillib.items;
 
-import me.andreasmelone.amutillib.items.events.OnBlockBreakRunnable;
-import me.andreasmelone.amutillib.items.events.CreateItemStackEvent;
-import me.andreasmelone.amutillib.items.events.OnCreateItemStackRunnable;
-import me.andreasmelone.amutillib.items.events.OnInteractRunnable;
+import me.andreasmelone.amutillib.items.events.*;
 import me.andreasmelone.amutillib.registry.Registrable;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -24,9 +21,7 @@ public class AMItem implements Registrable {
     private final String[] lore;
     private final Material material;
     private final int customModelData;
-    private final List<OnInteractRunnable> onInteract = new LinkedList<>();
-    private final List<OnBlockBreakRunnable> onBlockBreak = new LinkedList<>();
-    private final List<OnCreateItemStackRunnable> onCreateItemStack = new LinkedList<>();
+
 
     protected AMItem(NamespacedKey key, String name, String[] lore, Material material,
                      int customModelData) {
@@ -59,28 +54,35 @@ public class AMItem implements Registrable {
         return customModelData;
     }
 
+    private final List<OnInteractRunnable> onInteract = new LinkedList<>();
+    private final List<OnBlockBreakRunnable> onBlockBreak = new LinkedList<>();
+    private final List<OnCreateItemStackRunnable> onCreateItemStack = new LinkedList<>();
+    private final List<OnEntityHitRunnable> onEntityHit = new LinkedList<>();
+
     public void onInteract(OnInteractRunnable runnable) {
         onInteract.add(runnable);
     }
-
     public void onBlockBreak(OnBlockBreakRunnable runnable) {
         onBlockBreak.add(runnable);
     }
-
     public void onCreateItemStack(OnCreateItemStackRunnable runnable) {
         onCreateItemStack.add(runnable);
+    }
+    public void onEntityHit(OnEntityHitRunnable runnable) {
+        onEntityHit.add(runnable);
     }
 
     public List<OnInteractRunnable> getOnInteract() {
         return onInteract;
     }
-
     public List<OnBlockBreakRunnable> getOnBlockBreak() {
         return onBlockBreak;
     }
-
     public List<OnCreateItemStackRunnable> getOnCreateItemStack() {
         return onCreateItemStack;
+    }
+    public List<OnEntityHitRunnable> getOnEntityHit() {
+        return onEntityHit;
     }
 
     public ItemStack createItemStack() {

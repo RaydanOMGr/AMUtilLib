@@ -6,7 +6,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 
 public class CreateItemStackEvent extends Event {
-    HandlerList handlers = new HandlerList();
+    private static final HandlerList handlers = new HandlerList();
 
     private final AMItem item;
     private final ItemStack itemStack;
@@ -30,6 +30,6 @@ public class CreateItemStackEvent extends Event {
     }
 
     public static HandlerList getHandlerList() {
-        return new HandlerList();
+        return handlers;
     }
 }

@@ -11,14 +11,19 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.xml.stream.events.Namespace;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class GiveItemCommand implements TabExecutor {
     private JavaPlugin plugin;
+    private String pluginNamespaceName;
     public GiveItemCommand(JavaPlugin plugin) {
         this.plugin = plugin;
+        this.pluginNamespaceName = new NamespacedKey(plugin, plugin.getName().toLowerCase())
+                .toString()
+                .split(":")[0];
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -38,7 +43,7 @@ public class GiveItemCommand implements TabExecutor {
 
         String itemName = args[1];
         if(itemName.split(":").length < 2) {
-            itemName = plugin.getName() + ":" + itemName;
+            itemName = pluginNamespaceName + ":" + itemName;
         }
 
         AMItem item = ItemRegister.getInstance().getRegisteredItems().get(NamespacedKey.fromString(itemName));

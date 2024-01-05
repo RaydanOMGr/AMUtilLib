@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -53,6 +54,20 @@ public class ItemEventsListener implements Listener {
         ItemRegister.getInstance().getRegisteredItems().forEach((key, amItem) -> {
             if (amItem.compareTo(event.getItemStack())) {
                 amItem.getOnCreateItemStack().forEach(runnable -> runnable.run(event));
+            }
+        });
+    }
+
+    @EventHandler
+    public void onEntityHit(EntityDamageByEntityEvent event) {
+        if(!(event.getDamager() instanceof Player)) return;
+        Player player = (Player) event.getDamager();
+        ItemStack item = player.getInventory().getItemInMainHand();
+        ItemRegister.getInstance().getRegisteredItems().forEach((key, amItem) -> {
+            if (item.getItemMeta() != null) {
+                if (amItem.compareTo(item)) {
+                    amItem.getOnEntityHit().forEach(runnable -> runnable.run(event));
+                }
             }
         });
     }

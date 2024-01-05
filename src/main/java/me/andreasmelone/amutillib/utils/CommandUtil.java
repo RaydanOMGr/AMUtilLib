@@ -2,6 +2,7 @@ package me.andreasmelone.amutillib.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
@@ -62,5 +63,10 @@ public class CommandUtil {
         };
         command.setAliases(Arrays.asList(aliases));
         return command;
+    }
+
+    public static void registerTabExecutor(JavaPlugin plugin, TabExecutor executor, String name) {
+        plugin.getCommand(name).setExecutor(executor);
+        plugin.getCommand(name).setTabCompleter(executor);
     }
 }
