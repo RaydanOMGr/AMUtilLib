@@ -1,8 +1,11 @@
 package me.andreasmelone.amutillib.items;
 
 import me.andreasmelone.amutillib.items.events.OnBlockBreakRunnable;
+import me.andreasmelone.amutillib.items.events.OnCreateItemStackEvent;
+import me.andreasmelone.amutillib.items.events.OnCreateItemStackRunnable;
 import me.andreasmelone.amutillib.items.events.OnInteractRunnable;
 import me.andreasmelone.amutillib.registry.Registrable;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -23,6 +26,7 @@ public class AMItem implements Registrable {
     private final int customModelData;
     private final List<OnInteractRunnable> onInteract = new LinkedList<>();
     private final List<OnBlockBreakRunnable> onBlockBreak = new LinkedList<>();
+    private final List<OnCreateItemStackRunnable> onCreateItemStack = new LinkedList<>();
 
     protected AMItem(NamespacedKey key, String name, String[] lore, Material material,
                      int customModelData) {
@@ -63,12 +67,20 @@ public class AMItem implements Registrable {
         onBlockBreak.add(runnable);
     }
 
+    public void onCreateItemStack(OnCreateItemStackRunnable runnable) {
+        onCreateItemStack.add(runnable);
+    }
+
     public List<OnInteractRunnable> getOnInteract() {
         return onInteract;
     }
 
     public List<OnBlockBreakRunnable> getOnBlockBreak() {
         return onBlockBreak;
+    }
+
+    public List<OnCreateItemStackRunnable> getOnCreateItemStack() {
+        return onCreateItemStack;
     }
 
     public ItemStack createItemStack() {
@@ -87,6 +99,10 @@ public class AMItem implements Registrable {
         if(lore != null) meta.setLore(Arrays.asList(lore));
 
         item.setItemMeta(meta);
+
+        OnCreateItemStackEvent event = new OnCreateItemStackEvent(this, item);
+        Bukkit.getPluginManager().callEvent(event);
+
         return item;
     }
 

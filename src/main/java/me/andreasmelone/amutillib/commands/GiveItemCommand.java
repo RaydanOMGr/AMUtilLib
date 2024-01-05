@@ -9,12 +9,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class GiveItemCommand implements TabExecutor {
+    private JavaPlugin plugin;
+    public GiveItemCommand(JavaPlugin plugin) {
+        this.plugin = plugin;
+    }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(args.length < 2) {
@@ -31,7 +36,12 @@ public class GiveItemCommand implements TabExecutor {
             targets[0] = Bukkit.getPlayer(args[0]);
         }
 
-        AMItem item = ItemRegister.getInstance().getRegisteredItems().get(NamespacedKey.fromString(args[1]));
+        String itemName = args[1];
+        if(itemName.split(":").length < 2) {
+            itemName = plugin.getName() + ":" + itemName;
+        }
+
+        AMItem item = ItemRegister.getInstance().getRegisteredItems().get(NamespacedKey.fromString(itemName));
         if(item == null) {
             sender.sendMessage(Util.transform("§cItem not found!"));
             return true;
@@ -55,7 +65,7 @@ public class GiveItemCommand implements TabExecutor {
             List<String> items = ItemRegister.getInstance().getRegisteredItems()
                     .keySet()
                     .stream()
-                    .map(NamespacedKey::toString)
+                    .map(NamespacedKey::getKey)
                     .collect(Collectors.toCollection(LinkedList::new));
             items = Util.getElementsWithArgument(items, args[1]);
             tabComplete.addAll(items);
