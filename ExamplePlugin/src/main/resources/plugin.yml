@@ -2,5 +2,12 @@ name: ExamplePlugin
 version: '${project.version}'
 main: me.andreasmelone.exampleplugin.ExamplePlugin
 api-version: '1.19'
-depend:
-  - AMUtilLib
+
+commands:
+  giveitem:
+    permission: exampleplugin.giveitem
+
+permissions:
+  exampleplugin.giveitem:
+    description: Allows the player to give himself an item
+    default: op

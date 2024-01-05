@@ -1,19 +1,17 @@
 package me.andreasmelone.amutillib.items.events;
 
 import me.andreasmelone.amutillib.items.AMItem;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 
-public class OnCreateItemStackEvent extends Event {
+public class CreateItemStackEvent extends Event {
     HandlerList handlers = new HandlerList();
 
     private final AMItem item;
     private final ItemStack itemStack;
 
-    public OnCreateItemStackEvent(AMItem item, ItemStack itemStack) {
+    public CreateItemStackEvent(AMItem item, ItemStack itemStack) {
         this.item = item;
         this.itemStack = itemStack;
     }

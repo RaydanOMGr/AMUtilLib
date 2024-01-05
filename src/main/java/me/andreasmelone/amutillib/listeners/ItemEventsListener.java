@@ -1,5 +1,6 @@
 package me.andreasmelone.amutillib.listeners;
 
+import me.andreasmelone.amutillib.items.events.CreateItemStackEvent;
 import me.andreasmelone.amutillib.registry.ItemRegister;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -43,6 +44,15 @@ public class ItemEventsListener implements Listener {
                 if (amItem.compareTo(item)) {
                     amItem.getOnBlockBreak().forEach(runnable -> runnable.run(event));
                 }
+            }
+        });
+    }
+
+    @EventHandler
+    public void onItemCreate(CreateItemStackEvent event) {
+        ItemRegister.getInstance().getRegisteredItems().forEach((key, amItem) -> {
+            if (amItem.compareTo(event.getItemStack())) {
+                amItem.getOnCreateItemStack().forEach(runnable -> runnable.run(event));
             }
         });
     }

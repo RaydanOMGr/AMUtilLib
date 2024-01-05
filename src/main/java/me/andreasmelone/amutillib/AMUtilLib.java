@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class AMUtilLib {
     public static final AMUtilLib INSTANCE = new AMUtilLib();
 
-    private void registerEvents(JavaPlugin plugin) {
+    public void registerEvents(JavaPlugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(new ItemEventsListener(), plugin);
         //plugin.getServer().getPluginManager().registerEvents(new CommandEventsListener(plugin), plugin);
     }

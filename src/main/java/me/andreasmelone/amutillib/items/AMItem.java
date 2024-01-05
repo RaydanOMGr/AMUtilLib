@@ -1,7 +1,7 @@
 package me.andreasmelone.amutillib.items;
 
 import me.andreasmelone.amutillib.items.events.OnBlockBreakRunnable;
-import me.andreasmelone.amutillib.items.events.OnCreateItemStackEvent;
+import me.andreasmelone.amutillib.items.events.CreateItemStackEvent;
 import me.andreasmelone.amutillib.items.events.OnCreateItemStackRunnable;
 import me.andreasmelone.amutillib.items.events.OnInteractRunnable;
 import me.andreasmelone.amutillib.registry.Registrable;
@@ -100,7 +100,7 @@ public class AMItem implements Registrable {
 
         item.setItemMeta(meta);
 
-        OnCreateItemStackEvent event = new OnCreateItemStackEvent(this, item);
+        CreateItemStackEvent event = new CreateItemStackEvent(this, item);
         Bukkit.getPluginManager().callEvent(event);
 
         return item;
