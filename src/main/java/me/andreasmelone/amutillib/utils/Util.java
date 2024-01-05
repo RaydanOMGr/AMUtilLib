@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,6 +27,14 @@ public class Util {
 
     public static String nameFromType(Enum<?> blockType) {
         return blockType.toString().toLowerCase().replace("_", " ");
+    }
+
+    public static boolean isRightClick(Action action) {
+        return action.toString().contains("RIGHT");
+    }
+
+    public static boolean isLeftClick(Action action) {
+        return action.toString().contains("LEFT");
     }
 
     public static String transform(String message) {

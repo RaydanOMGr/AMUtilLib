@@ -44,15 +44,14 @@ public class Items {
         });
 
         exampleItem.get().onInteract((event) -> {
-            if(event.getAction().toString().contains("RIGHT")) {
+            if(Util.isRightClick(event.getAction())) {
                 if(event.getClickedBlock() != null)
                     event.getPlayer().sendMessage(plugin.getI18n().getTransformed(
                             "example_item.interact",
                             TranslationKey.of("%block%", Util.nameFromType(event.getClickedBlock().getType()))
                     ));
                 else event.getPlayer().sendMessage(plugin.getI18n().getTransformed(
-                        "example_item.interact",
-                        TranslationKey.of("%block%", "nothing")
+                        "example_item.interact_nothing"
                 ));
             }
         });
