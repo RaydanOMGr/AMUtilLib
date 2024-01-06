@@ -43,6 +43,11 @@ jobs:
         cd ExamplePlugin
         mvn -B package --file pom.xml
 
+    - name: Build Example Plugin (Kotlin)
+      run: |
+        cd ExamplePluginKotlin
+        mvn -B package --file pom.xml
+
     - name: Upload Library
       uses: actions/upload-artifact@v4
       with:
@@ -54,3 +59,9 @@ jobs:
       with:
         name: Example-Plugin
         path: ExamplePlugin/target/*.jar
+
+    - name: Upload Example Plugin (Kotlin)
+      uses: actions/upload-artifact@v4
+      with:
+        name: Example-Plugin-Kotlin
+        path: ExamplePluginKotlin/target/*.jar
