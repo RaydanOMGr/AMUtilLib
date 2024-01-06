@@ -3,6 +3,7 @@ package me.andreasmelone.amutillib.blocks;
 import com.jeff_media.customblockdata.CustomBlockData;
 import me.andreasmelone.amutillib.blocks.events.OnBlockPlaceRunnable;
 import me.andreasmelone.amutillib.items.AMItem;
+import me.andreasmelone.amutillib.items.events.OnInteractRunnable;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -25,13 +26,20 @@ public class AMBlock extends AMItem {
     }
 
     List<OnBlockPlaceRunnable> onBlockPlace = new LinkedList<>();
+    List<OnInteractRunnable> onInteract = new LinkedList<>();
 
     public void onBlockPlace(OnBlockPlaceRunnable runnable) {
         onBlockPlace.add(runnable);
     }
+    public void onInteract(OnInteractRunnable runnable) {
+        onInteract.add(runnable);
+    }
 
     public List<OnBlockPlaceRunnable> getOnBlockPlace() {
         return onBlockPlace;
+    }
+    public List<OnInteractRunnable> getOnInteract() {
+        return onInteract;
     }
 
     public boolean compareTo(Block block) {
