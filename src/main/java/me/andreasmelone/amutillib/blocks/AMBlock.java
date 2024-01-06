@@ -58,8 +58,7 @@ public class AMBlock extends AMItem {
         return new AMBlock(item);
     }
 
-    public static Block[] getBlocksInChunk(JavaPlugin plugin, Chunk chunk) {
-        List<Block> blocks = new LinkedList<>(CustomBlockData.getBlocksWithCustomData(plugin, chunk));
-        return blocks.toArray(new Block[0]);
+    public static List<Block> getBlocksInChunk(JavaPlugin plugin, Chunk chunk) {
+        return new LinkedList<>(CustomBlockData.getBlocksWithCustomData(plugin, chunk));
     }
 }
