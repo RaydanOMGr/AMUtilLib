@@ -15,14 +15,14 @@ public class Blocks {
     public static void register() {
         // EXAMPLE_BLOCK START
         exampleBlock.get().onBlockPlace(event -> {
-            plugin.getLogger().info(plugin.getI18n().getTransformed(
+            event.getPlayer().sendMessage(plugin.getI18n().getTransformed(
                     "example_block.placed",
                     TranslationKey.of("%block%", exampleBlock.get().getName())
             ));
         });
 
         exampleBlock.get().onInteract(event -> {
-            plugin.getLogger().info(plugin.getI18n().getTransformed(
+            event.getPlayer().sendMessage(plugin.getI18n().getTransformed(
                     "example_block.interacted",
                     TranslationKey.of("%block%", exampleBlock.get().getName())
             ));
