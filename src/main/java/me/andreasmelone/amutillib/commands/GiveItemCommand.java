@@ -1,7 +1,7 @@
 package me.andreasmelone.amutillib.commands;
 
 import me.andreasmelone.amutillib.items.AMItem;
-import me.andreasmelone.amutillib.registry.ItemRegister;
+import me.andreasmelone.amutillib.items.ItemRegister;
 import me.andreasmelone.amutillib.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;

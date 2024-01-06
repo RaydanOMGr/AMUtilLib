@@ -1,0 +1,12 @@
+# Path: langs/de_de.yml
+# Language: German
+# Country: Germany
+
+command.reload: "&eDie Konfiguration wurde neu geladen!"
+
+example_item.interact: "&eDu hast mit dem Beispielgegenstand %block% interagiert!"
+example_item.interact_nothing: "&eDu hast mit dem Beispielgegenstand mit nichts interagiert!"
+example_item.block_break: "&eDu hast %block% mit dem Beispielgegenstand zerstört!"
+example_item.entity_hit: "&eDu hast %entity% mit dem Beispielgegenstand geschlagen!"
+
+shit.eaten: "&4Du hast gerade Scheiße gegessen!"

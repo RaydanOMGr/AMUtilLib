@@ -1,7 +1,7 @@
 package me.andreasmelone.amutillib.listeners;
 
 import me.andreasmelone.amutillib.items.events.CreateItemStackEvent;
-import me.andreasmelone.amutillib.registry.ItemRegister;
+import me.andreasmelone.amutillib.items.ItemRegister;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;

@@ -3,7 +3,7 @@ package me.andreasmelone.exampleplugin;
 import me.andreasmelone.amutillib.i18n.TranslationKey;
 import me.andreasmelone.amutillib.items.AMItem;
 import me.andreasmelone.amutillib.items.ItemBuilder;
-import me.andreasmelone.amutillib.registry.ItemRegister;
+import me.andreasmelone.amutillib.items.ItemRegister;
 import me.andreasmelone.amutillib.registry.RegisteredObject;
 import me.andreasmelone.amutillib.utils.Util;
 import org.bukkit.Material;
