@@ -4,10 +4,12 @@ import com.jeff_media.customblockdata.CustomBlockData;
 import me.andreasmelone.amutillib.blocks.events.OnBlockPlaceRunnable;
 import me.andreasmelone.amutillib.items.AMItem;
 import me.andreasmelone.amutillib.items.events.OnInteractRunnable;
+import org.bukkit.Chunk;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -54,5 +56,10 @@ public class AMBlock extends AMItem {
     }
     public static AMBlock from(AMItem item) {
         return new AMBlock(item);
+    }
+
+    public static Block[] getBlocksInChunk(JavaPlugin plugin, Chunk chunk) {
+        List<Block> blocks = new LinkedList<>(CustomBlockData.getBlocksWithCustomData(plugin, chunk));
+        return blocks.toArray(new Block[0]);
     }
 }
