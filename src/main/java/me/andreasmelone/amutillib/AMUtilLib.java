@@ -1,6 +1,7 @@
 package me.andreasmelone.amutillib;
 
 import me.andreasmelone.amutillib.commands.GiveItemCommand;
+import me.andreasmelone.amutillib.listeners.BlockEventsListener;
 import me.andreasmelone.amutillib.utils.CommandUtil;
 import me.andreasmelone.amutillib.listeners.ItemEventsListener;
 import org.bukkit.command.CommandMap;
@@ -13,6 +14,7 @@ public final class AMUtilLib {
 
     public void registerEvents(JavaPlugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(new ItemEventsListener(), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new BlockEventsListener(), plugin);
     }
 
     @Deprecated
