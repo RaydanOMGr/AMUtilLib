@@ -45,7 +45,7 @@ public class GiveItemCommand implements TabExecutor {
             itemName = pluginNamespaceName + ":" + itemName;
         }
 
-        AMItem item = ItemRegister.getInstance().getRegisteredItems().get(NamespacedKey.fromString(itemName));
+        AMItem item = ItemRegister.getInstance().getRegisteredElements().get(NamespacedKey.fromString(itemName));
         if(item == null) {
             sender.sendMessage(Util.transform("§cItem not found!"));
             return true;
@@ -66,7 +66,7 @@ public class GiveItemCommand implements TabExecutor {
             tabComplete.addAll(Util.getPlayersWithArgument(args[0]));
         }
         if(args.length == 2) {
-            List<String> items = ItemRegister.getInstance().getRegisteredItems()
+            List<String> items = ItemRegister.getInstance().getRegisteredElements()
                     .keySet()
                     .stream()
                     .map(key -> {

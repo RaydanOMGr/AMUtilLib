@@ -1,6 +1,5 @@
 package me.andreasmelone.amutillib.registry;
 
-import me.andreasmelone.amutillib.items.AMItem;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,7 +15,7 @@ public abstract class Register<T extends Registrable> {
         return registeredObject;
     }
 
-    public HashMap<NamespacedKey, T> getRegisteredItems() {
+    public HashMap<NamespacedKey, T> getRegisteredElements() {
         HashMap<NamespacedKey, T> items = new HashMap<>();
         for(RegisteredObject<T> regobject : registeredItems.values()) {
             items.put(regobject.get().getKey(), regobject.get());
@@ -24,7 +23,7 @@ public abstract class Register<T extends Registrable> {
         return items;
     }
 
-    public HashMap<String, T> getRegisteredItems(JavaPlugin plugin) {
+    public HashMap<String, T> getRegisteredElements(JavaPlugin plugin) {
         HashMap<String, T> items = new HashMap<>();
         for(RegisteredObject<T> regobject : registeredItems.values()) {
             T item = regobject.get();

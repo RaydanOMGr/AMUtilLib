@@ -24,6 +24,14 @@ public class Items {
                     .build()
     );
 
+    public static RegisteredObject<AMItem> exampleBlockItem = ItemRegister.getInstance().register(
+            ItemBuilder.createBuilder(plugin, "example_block")
+                    .setName("&rExample Block")
+                    .setLore("&rThis is the item for am example block.")
+                    .setMaterial(Material.STONE)
+                    .build()
+    );
+
     public static RegisteredObject<AMItem> shitItem = ItemRegister.getInstance().register(
             ItemBuilder.createBuilder(plugin, "shit")
                     .setName("&rShit")
