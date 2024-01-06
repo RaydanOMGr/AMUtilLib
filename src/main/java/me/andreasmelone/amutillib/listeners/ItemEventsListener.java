@@ -17,14 +17,8 @@ import org.bukkit.inventory.ItemStack;
 public class ItemEventsListener implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
-        Entity interactedEntity = null;
-        EquipmentSlot hand = event.getHand();
-        Action action = event.getAction();
         ItemStack item = event.getItem();
         if(item != null) {
-            Block interactedBlock = event.getClickedBlock();
-
             ItemRegister.getInstance().getRegisteredElements().forEach((key, amItem) -> {
                 if(item.getItemMeta() != null) {
                     if(amItem.compareTo(item)) {
@@ -38,7 +32,6 @@ public class ItemEventsListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        Block block = event.getBlock();
         ItemStack item = player.getInventory().getItemInMainHand();
         ItemRegister.getInstance().getRegisteredElements().forEach((key, amItem) -> {
             if (item.getItemMeta() != null) {

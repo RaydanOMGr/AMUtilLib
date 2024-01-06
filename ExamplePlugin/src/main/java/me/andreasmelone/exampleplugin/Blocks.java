@@ -4,6 +4,7 @@ import me.andreasmelone.amutillib.blocks.AMBlock;
 import me.andreasmelone.amutillib.blocks.BlockRegister;
 import me.andreasmelone.amutillib.i18n.TranslationKey;
 import me.andreasmelone.amutillib.registry.RegisteredObject;
+import me.andreasmelone.amutillib.utils.Util;
 
 public class Blocks {
     static ExamplePlugin plugin = ExamplePlugin.getInstance();
@@ -16,15 +17,20 @@ public class Blocks {
         // EXAMPLE_BLOCK START
         exampleBlock.get().onBlockPlace(event -> {
             event.getPlayer().sendMessage(plugin.getI18n().getTransformed(
-                    "example_block.placed",
-                    TranslationKey.of("%block%", exampleBlock.get().getName())
+                    "example_block.placed"
             ));
         });
 
         exampleBlock.get().onInteract(event -> {
+            if(Util.isRightClick(event.getAction()))
+                event.getPlayer().sendMessage(plugin.getI18n().getTransformed(
+                        "example_block.interact"
+                ));
+        });
+
+        exampleBlock.get().onBlockBreak(event -> {
             event.getPlayer().sendMessage(plugin.getI18n().getTransformed(
-                    "example_block.interacted",
-                    TranslationKey.of("%block%", exampleBlock.get().getName())
+                    "example_block.break"
             ));
         });
         // EXAMPLE_BLOCK END

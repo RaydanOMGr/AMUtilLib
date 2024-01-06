@@ -42,7 +42,7 @@ public class I18n {
     public String get(String key, TranslationKey... keys) {
         String value = get(key);
         for(TranslationKey translationKey : keys) {
-            value = value.replaceAll(translationKey.key(), translationKey.value());
+            value = value.replace(translationKey.key(), translationKey.value());
         }
         return value;
     }

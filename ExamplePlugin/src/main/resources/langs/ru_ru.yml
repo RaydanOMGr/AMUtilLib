@@ -11,5 +11,6 @@ example_item.entity_hit: "&eВы ударили %entity% примерным пр
 
 shit.eaten: "&4Вы только что съели говно!"
 
-example_block.placed: "&eВы поставили %block%!"
-example_block.interact: "&eВы взаимодействовали с %block%!"
+example_block.placed: "&eВы поставили примерный блок!"
+example_block.interact: "&eВы взаимодействовали с примерным блоком!"
+example_block.break: "&eВы сломали примерный блок!"

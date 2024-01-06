@@ -43,6 +43,7 @@ public class AMBlock extends AMItem {
     }
 
     public boolean compareTo(Block block) {
+        if(block == null) return false;
         PersistentDataContainer pdc = new CustomBlockData(block, getKey().getNamespace());
         String id  = pdc.getOrDefault(
                 new NamespacedKey(getKey().getNamespace(), "block_id"),

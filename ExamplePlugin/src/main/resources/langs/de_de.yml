@@ -11,5 +11,6 @@ example_item.entity_hit: "&eDu hast %entity% mit dem Beispielgegenstand geschlag
 
 shit.eaten: "&4Du hast gerade Scheiße gegessen!"
 
-example_block.placed: "&eDu hast %block% plaziert!"
-example_block.interact: "&eDu hast mit %block% interagiert!"
+example_block.placed: "&eDu hast den Beispielsblock platziert!"
+example_block.interact: "&eDu hast mit dem Beispielsblock interagiert!"
+example_block.break: "&eDu hast den Beispielsblock zerstört!"
