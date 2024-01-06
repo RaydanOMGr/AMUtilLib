@@ -23,7 +23,10 @@ public final class AMUtilLib {
         if(commandMap == null) return;
         if(commandMap.getCommand("giveitem") != null) return;
 
-        CommandUtil.registerCommands(CommandUtil.toCommand(new GiveItemCommand(null), "giveitem"));
+        CommandUtil.registerCommands(CommandUtil.toCommand(
+                new GiveItemCommand(null),
+                "giveitem")
+        );
     }
 
     public void registerCommands(JavaPlugin plugin, String name) {
