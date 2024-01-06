@@ -1,4 +1,4 @@
-package me.andreasmelone.amutillib.items.events;
+package me.andreasmelone.amutillib.events;
 
 import me.andreasmelone.amutillib.items.AMItem;
 import org.bukkit.event.Event;

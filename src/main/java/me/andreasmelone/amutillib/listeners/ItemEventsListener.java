@@ -1,17 +1,13 @@
 package me.andreasmelone.amutillib.listeners;
 
-import me.andreasmelone.amutillib.items.events.CreateItemStackEvent;
+import me.andreasmelone.amutillib.events.CreateItemStackEvent;
 import me.andreasmelone.amutillib.items.ItemRegister;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 public class ItemEventsListener implements Listener {

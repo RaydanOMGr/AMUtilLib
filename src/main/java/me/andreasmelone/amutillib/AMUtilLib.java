@@ -1,6 +1,7 @@
 package me.andreasmelone.amutillib;
 
 import me.andreasmelone.amutillib.commands.GiveItemCommand;
+import me.andreasmelone.amutillib.events.register.ServerTickRunnable;
 import me.andreasmelone.amutillib.listeners.BlockEventsListener;
 import me.andreasmelone.amutillib.utils.CommandUtil;
 import me.andreasmelone.amutillib.listeners.ItemEventsListener;
@@ -16,6 +17,8 @@ public final class AMUtilLib {
     public void registerEvents(JavaPlugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(new ItemEventsListener(), plugin);
         plugin.getServer().getPluginManager().registerEvents(new BlockEventsListener(), plugin);
+
+        ServerTickRunnable.get().runTaskTimer(plugin, 0, 1);
     }
 
     @Deprecated

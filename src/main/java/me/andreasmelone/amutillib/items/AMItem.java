@@ -1,5 +1,6 @@
 package me.andreasmelone.amutillib.items;
 
+import me.andreasmelone.amutillib.events.CreateItemStackEvent;
 import me.andreasmelone.amutillib.items.events.*;
 import me.andreasmelone.amutillib.registry.Registrable;
 import me.andreasmelone.amutillib.utils.Util;
