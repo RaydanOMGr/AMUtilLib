@@ -19,6 +19,7 @@ public final class ExamplePlugin extends JavaPlugin {
         i18n.setLanguage(config.getString("lang"));
 
         Items.register();
+        Blocks.register();
 
         AMUtilLib.getInstance().registerCommands(this, "giveitem");
         AMUtilLib.getInstance().registerEvents(this);

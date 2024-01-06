@@ -8,8 +8,12 @@ public class Blocks {
     static ExamplePlugin plugin = ExamplePlugin.getInstance();
 
     public static final RegisteredObject<AMBlock> exampleBlock = BlockRegister.getInstance().register(
-            AMBlock.from(Items.exampleItem.get())
+            AMBlock.from(Items.exampleBlockItem.get())
     );
 
-
+    public static void register() {
+        exampleBlock.get().onBlockPlace(event -> {
+            plugin.getLogger().info("Block "+  exampleBlock.get().getName() + " placed!");
+        });
+    }
 }

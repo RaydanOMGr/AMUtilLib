@@ -1,8 +1,12 @@
 package me.andreasmelone.amutillib.blocks;
 
-import jdk.nashorn.internal.ir.Block;
+import com.jeff_media.customblockdata.CustomBlockData;
 import me.andreasmelone.amutillib.blocks.events.OnBlockPlaceRunnable;
 import me.andreasmelone.amutillib.items.AMItem;
+import org.bukkit.NamespacedKey;
+import org.bukkit.block.Block;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +35,13 @@ public class AMBlock extends AMItem {
     }
 
     public boolean compareTo(Block block) {
-        return block.get().getKey().equals(getItem().getKey());
+        PersistentDataContainer pdc = new CustomBlockData(block, getKey().getNamespace());
+        String id  = pdc.getOrDefault(
+                new NamespacedKey(getKey().getNamespace(), "block_id"),
+                PersistentDataType.STRING,
+                ""
+        );
+        return id.equals(getKey().getKey());
     }
     public static AMBlock from(AMItem item) {
         return new AMBlock(item);
