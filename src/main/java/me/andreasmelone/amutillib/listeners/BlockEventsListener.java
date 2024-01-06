@@ -7,6 +7,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,6 +26,15 @@ public class BlockEventsListener implements Listener {
         BlockRegister.getInstance().getRegisteredElements().forEach((key, amBlock) -> {
             if(amBlock.compareTo(event.getBlock())) {
                 amBlock.getOnBlockPlace().forEach(runnable -> runnable.run(event));
+            }
+        });
+    }
+
+    @EventHandler
+    public void onBlockInteract(PlayerInteractEvent event) {
+        BlockRegister.getInstance().getRegisteredElements().forEach((key, amBlock) -> {
+            if(amBlock.compareTo(event.getClickedBlock())) {
+                amBlock.getOnInteract().forEach(runnable -> runnable.run(event));
             }
         });
     }
