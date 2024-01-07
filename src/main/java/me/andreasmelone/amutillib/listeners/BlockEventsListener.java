@@ -47,6 +47,12 @@ public class BlockEventsListener implements Listener {
         BlockRegister.getInstance().getRegisteredElements().forEach((key, amBlock) -> {
             if(amBlock.compareTo(event.getBlock())) {
                 amBlock.getOnBlockBreak().forEach(runnable -> runnable.run(event));
+                // make it drop the item
+                event.setDropItems(false);
+                event.getBlock().getWorld().dropItemNaturally(
+                        event.getBlock().getLocation(),
+                        amBlock.getItem().createItemStack()
+                );
             }
         });
     }
