@@ -9,6 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.LinkedList;
@@ -51,9 +52,24 @@ public class GiveItemCommand implements TabExecutor {
             return true;
         }
 
-        for(Player target : targets) {
-            target.getInventory().addItem(item.createItemStack());
+        int amount = 1;
+        if(args.length > 2) {
+            try {
+                amount = Integer.parseInt(args[2]);
+            } catch (NumberFormatException e) {
+                sender.sendMessage(Util.transform("§cAmount must be a number!"));
+                return true;
+            }
         }
+
+        for(Player target : targets) {
+            ItemStack itemStack = item.createItemStack();
+            itemStack.setAmount(amount);
+            target.getInventory().addItem(itemStack);
+            target.sendMessage(Util.transform("§aYou received *" + amount + " [" + item.getName() + "]"));
+        }
+
+        sender.sendMessage(Util.transform("§aYou gave *" + amount + " [" + item.getName() + "] to " + targets.length + " players"));
 
         return true;
     }
@@ -64,8 +80,7 @@ public class GiveItemCommand implements TabExecutor {
         if(args.length == 1) {
             tabComplete.add("*");
             tabComplete.addAll(Util.getPlayersWithArgument(args[0]));
-        }
-        if(args.length == 2) {
+        } else if(args.length == 2) {
             List<String> items = ItemRegister.getInstance().getRegisteredElements()
                     .keySet()
                     .stream()
@@ -82,6 +97,10 @@ public class GiveItemCommand implements TabExecutor {
                     .collect(Collectors.toCollection(LinkedList::new));
             items = Util.getElementsWithArgument(items, args[1]);
             tabComplete.addAll(items);
+        } else if(args.length == 3) {
+            for(int i = 0; i < 64; i++) {
+                tabComplete.add(String.valueOf(i));
+            }
         }
 
         return tabComplete;
