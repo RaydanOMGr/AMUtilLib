@@ -28,7 +28,7 @@ public class GiveItemCommand implements TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(args.length < 2) {
-            sender.sendMessage(Util.transform("§cUsage: /" + label + " <player> <item>"));
+            sender.sendMessage(Util.transform("&cUsage: /" + label + " <player> <item>"));
             return true;
         }
 
@@ -48,7 +48,7 @@ public class GiveItemCommand implements TabExecutor {
 
         AMItem item = ItemRegister.getInstance().getRegisteredElements().get(NamespacedKey.fromString(itemName));
         if(item == null) {
-            sender.sendMessage(Util.transform("§cItem not found!"));
+            sender.sendMessage(Util.transform("&cItem not found!"));
             return true;
         }
 
@@ -57,7 +57,7 @@ public class GiveItemCommand implements TabExecutor {
             try {
                 amount = Integer.parseInt(args[2]);
             } catch (NumberFormatException e) {
-                sender.sendMessage(Util.transform("§cAmount must be a number!"));
+                sender.sendMessage(Util.transform("&cAmount must be a number!"));
                 return true;
             }
         }
@@ -66,10 +66,10 @@ public class GiveItemCommand implements TabExecutor {
             ItemStack itemStack = item.createItemStack();
             itemStack.setAmount(amount);
             target.getInventory().addItem(itemStack);
-            target.sendMessage(Util.transform("§aYou received *" + amount + " [" + item.getName() + "]"));
+            target.sendMessage(Util.transform("&aYou received *" + amount + " [" + item.getName() + "&a]"));
         }
 
-        sender.sendMessage(Util.transform("§aYou gave *" + amount + " [" + item.getName() + "] to " + targets.length + " players"));
+        sender.sendMessage(Util.transform("&aYou gave *" + amount + " [" + item.getName() + "&a] to " + targets.length + " players"));
 
         return true;
     }
@@ -98,7 +98,7 @@ public class GiveItemCommand implements TabExecutor {
             items = Util.getElementsWithArgument(items, args[1]);
             tabComplete.addAll(items);
         } else if(args.length == 3) {
-            for(int i = 0; i < 64; i++) {
+            for(int i = 1; i < 9; i++) {
                 tabComplete.add(String.valueOf(i));
             }
         }
