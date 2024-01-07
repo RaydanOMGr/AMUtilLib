@@ -18,7 +18,7 @@ public final class AMUtilLib {
         plugin.getServer().getPluginManager().registerEvents(new ItemEventsListener(), plugin);
         plugin.getServer().getPluginManager().registerEvents(new BlockEventsListener(), plugin);
 
-        ServerTickRunnable.get().runTaskTimer(plugin, 0, 1);
+        new ServerTickRunnable().runTaskTimer(plugin, 0, 1);
     }
 
     @Deprecated
