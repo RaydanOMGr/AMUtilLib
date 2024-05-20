@@ -3,7 +3,6 @@ package me.andreasmelone.exampleplugin;
 import me.andreasmelone.amutillib.i18n.TranslationKey;
 import me.andreasmelone.amutillib.items.AMItem;
 import me.andreasmelone.amutillib.items.ItemBuilder;
-import me.andreasmelone.amutillib.items.ItemRegister;
 import me.andreasmelone.amutillib.registry.RegisteredObject;
 import me.andreasmelone.amutillib.utils.Util;
 import org.bukkit.Material;
@@ -16,24 +15,24 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Items {
     static ExamplePlugin plugin = ExamplePlugin.getInstance();
-    public static RegisteredObject<AMItem> exampleItem = ItemRegister.getInstance().register(
-            ItemBuilder.createBuilder(plugin, "example_item")
+    public static RegisteredObject<AMItem> exampleItem = plugin.getAMUtilLib().getItemRegister().register(
+            ItemBuilder.create(plugin, "example_item")
                     .setName("&rExample Item")
                     .setLore("&rThis is an example item.")
                     .setMaterial(Material.STONE_SHOVEL)
                     .build()
     );
 
-    public static RegisteredObject<AMItem> exampleBlockItem = ItemRegister.getInstance().register(
-            ItemBuilder.createBuilder(plugin, "example_block")
+    public static RegisteredObject<AMItem> exampleBlockItem = plugin.getAMUtilLib().getItemRegister().register(
+            ItemBuilder.create(plugin, "example_block")
                     .setName("&rExample Block")
-                    .setLore("&rThis is the item for am example block.")
+                    .setLore("&rThis is the item for an example block.")
                     .setMaterial(Material.STONE)
                     .build()
     );
 
-    public static RegisteredObject<AMItem> shitItem = ItemRegister.getInstance().register(
-            ItemBuilder.createBuilder(plugin, "shit")
+    public static RegisteredObject<AMItem> shitItem = plugin.getAMUtilLib().getItemRegister().register(
+            ItemBuilder.create(plugin, "shit")
                     .setName("&rShit")
                     .setLore("&r&fStinks.")
                     .setMaterial(Material.BROWN_DYE)

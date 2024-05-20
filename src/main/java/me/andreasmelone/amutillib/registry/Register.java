@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public abstract class Register<T extends Registrable> {
+public class Register<T extends Registrable> {
     private final LinkedHashMap<NamespacedKey, RegisteredObject<T>> registeredItems = new LinkedHashMap<>();
 
     public RegisteredObject<T> register(T item) {

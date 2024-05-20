@@ -52,7 +52,7 @@ public class ItemBuilder {
         return new AMItem(key, name, lore, material, customModelData);
     }
 
-    public static ItemBuilder createBuilder(JavaPlugin plugin, String id) {
+    public static ItemBuilder create(JavaPlugin plugin, String id) {
         return new ItemBuilder().setKey(new NamespacedKey(plugin, id));
     }
 }

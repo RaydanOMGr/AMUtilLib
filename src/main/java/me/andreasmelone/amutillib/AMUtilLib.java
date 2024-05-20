@@ -1,55 +1,54 @@
 package me.andreasmelone.amutillib;
 
-import me.andreasmelone.amutillib.commands.GiveItemCommand;
-import me.andreasmelone.amutillib.events.register.ServerTickRunnable;
-import me.andreasmelone.amutillib.listeners.BlockEventsListener;
-import me.andreasmelone.amutillib.utils.CommandUtil;
-import me.andreasmelone.amutillib.listeners.ItemEventsListener;
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandMap;
-import org.bukkit.command.PluginCommand;
-import org.bukkit.command.TabExecutor;
+import me.andreasmelone.amutillib.blocks.AMBlock;
+import me.andreasmelone.amutillib.items.AMItem;
+import me.andreasmelone.amutillib.registry.Register;
+import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class AMUtilLib {
-    public static final AMUtilLib INSTANCE = new AMUtilLib();
+public interface AMUtilLib {
+    /**
+     * Returns the item register
+     * @return The item register
+     */
+    Register<AMItem> getItemRegister();
 
-    public void registerEvents(JavaPlugin plugin) {
-        plugin.getServer().getPluginManager().registerEvents(new ItemEventsListener(), plugin);
-        plugin.getServer().getPluginManager().registerEvents(new BlockEventsListener(), plugin);
+    /**
+     * Returns the block register
+     * @return The block register
+     */
+    Register<AMBlock> getBlockRegister();
 
-        new ServerTickRunnable().runTaskTimer(plugin, 0, 1);
-    }
+    /**
+     * Returns the plugin that initialized AMUtilLib
+     * @return The plugin that initialized AMUtilLib
+     */
+    JavaPlugin getRegisteringPlugin();
 
-    @Deprecated
-    private void registerCommands() {
-        CommandMap commandMap = CommandUtil.getCommandMap();
-        if(commandMap == null) return;
-        if(commandMap.getCommand("giveitem") != null) return;
-
-        CommandUtil.registerCommands(CommandUtil.toCommand(
-                new GiveItemCommand(null),
-                "giveitem")
-        );
-    }
-
-    public void registerCommands(JavaPlugin plugin, String name) {
-        PluginCommand command = plugin.getCommand(name);
-        if(command == null) {
-            plugin.getLogger().severe("[AMUtilLib] Could not register command " + name + "!");
+    /**
+     * Calls all necessary methods to initialize AMUtilLib
+     * <p>
+     * This method has to be called for AMUtilLib to be initialized
+     * Once initialized, the AMUtilLib instance can be retrieved using
+     * {@link AMUtilLib#getInstance(JavaPlugin)}
+     * <p>
+     * This allows all plugins to work with the same instance of AMUtilLib
+     * @param plugin The plugin that is initializing AMUtilLib
+     */
+    static void register(JavaPlugin plugin) {
+        if(plugin.getServer().getServicesManager().isProvidedFor(AMUtilLib.class)) {
             return;
         }
 
-        TabExecutor executor = new GiveItemCommand(plugin);
-        command.setExecutor(executor);
-        command.setTabCompleter(executor);
+        AMUtilLibImpl amUtilLib = new AMUtilLibImpl(plugin);
+        amUtilLib.registerEvents(plugin);
+        amUtilLib.registerCommands();
+        amUtilLib.initRegisters();
+
+        plugin.getServer().getServicesManager().register(AMUtilLib.class, amUtilLib, plugin, ServicePriority.Normal);
     }
 
-    public void debugBroadcast(String message) {
-        Bukkit.broadcastMessage("[DEBUG] " + message);
-    }
-
-    public static AMUtilLib getInstance() {
-        return INSTANCE;
+    static AMUtilLib getInstance(JavaPlugin plugin) {
+        return plugin.getServer().getServicesManager().load(AMUtilLib.class);
     }
 }

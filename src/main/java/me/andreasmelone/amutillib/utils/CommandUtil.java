@@ -2,6 +2,7 @@ package me.andreasmelone.amutillib.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
+import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
@@ -38,35 +39,33 @@ public class CommandUtil {
         }
     }
 
-    public static Command toCommand(CommandExecutor executor, String name, String... aliases) {
-        if(aliases.length == 0) {
-            aliases = new String[] { name };
-        }
-        Command command = new Command(name) {
-            @Override
-            public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-                return executor.onCommand(sender, this, commandLabel, args);
-            }
-
-            @Nonnull
-            @Override
-            public List<String> tabComplete(CommandSender sender, String alias, String[] args) throws IllegalArgumentException {
-                if(!(executor instanceof TabExecutor)) {
-                    return super.tabComplete(sender, alias, args);
-                }
-                List<String> tabComplete = ((TabExecutor) executor).onTabComplete(sender, this, alias, args);
-                if(tabComplete == null) {
-                    return super.tabComplete(sender, alias, args);
-                }
-                return tabComplete;
-            }
-        };
-        command.setAliases(Arrays.asList(aliases));
-        return command;
-    }
-
     public static void registerTabExecutor(JavaPlugin plugin, TabExecutor executor, String name) {
         plugin.getCommand(name).setExecutor(executor);
         plugin.getCommand(name).setTabCompleter(executor);
+    }
+
+    public static class AMUtilLibCommand extends Command {
+        private final CommandExecutor executor;
+        private final TabCompleter completer;
+
+        public AMUtilLibCommand(String name, CommandExecutor executor, TabCompleter completer) {
+            super(name);
+            this.executor = executor;
+            this.completer = completer;
+        }
+
+        @Override
+        public boolean execute(@Nonnull CommandSender sender, @Nonnull String commandLabel, @Nonnull String[] args) {
+            return executor.onCommand(sender, this, commandLabel, args);
+        }
+
+        @Override
+        public List<String> tabComplete(@Nonnull CommandSender sender, @Nonnull String alias, @Nonnull String[] args) throws IllegalArgumentException {
+            List<String> completions = completer.onTabComplete(sender, this, alias, args);
+            if(completions == null) {
+                return super.tabComplete(sender, alias, args);
+            }
+            return completions;
+        }
     }
 }

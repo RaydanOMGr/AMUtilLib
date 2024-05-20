@@ -1,7 +1,7 @@
 package me.andreasmelone.amutillib.commands;
 
+import me.andreasmelone.amutillib.AMUtilLib;
 import me.andreasmelone.amutillib.items.AMItem;
-import me.andreasmelone.amutillib.items.ItemRegister;
 import me.andreasmelone.amutillib.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -17,14 +17,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class GiveItemCommand implements TabExecutor {
-    private final JavaPlugin plugin;
+    private final AMUtilLib lib;
     private final String pluginNamespaceName;
-    public GiveItemCommand(JavaPlugin plugin) {
-        this.plugin = plugin;
-        this.pluginNamespaceName = new NamespacedKey(plugin, plugin.getName().toLowerCase())
-                .toString()
-                .split(":")[0];
+    public GiveItemCommand(AMUtilLib lib, JavaPlugin plugin) {
+        this(lib, plugin.getName().toLowerCase());
     }
+
+    public GiveItemCommand(AMUtilLib lib, String namespace) {
+        this.lib = lib;
+        this.pluginNamespaceName = namespace;
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(args.length < 2) {
@@ -46,7 +49,7 @@ public class GiveItemCommand implements TabExecutor {
             itemName = pluginNamespaceName + ":" + itemName;
         }
 
-        AMItem item = ItemRegister.getInstance().getRegisteredElements().get(NamespacedKey.fromString(itemName));
+        AMItem item = lib.getItemRegister().getRegisteredElements().get(NamespacedKey.fromString(itemName));
         if(item == null) {
             sender.sendMessage(Util.transform("&cItem not found!"));
             return true;
@@ -81,7 +84,7 @@ public class GiveItemCommand implements TabExecutor {
             tabComplete.add("*");
             tabComplete.addAll(Util.getPlayersWithArgument(args[0]));
         } else if(args.length == 2) {
-            List<String> items = ItemRegister.getInstance().getRegisteredElements()
+            List<String> items = lib.getItemRegister().getRegisteredElements()
                     .keySet()
                     .stream()
                     .map(key -> {

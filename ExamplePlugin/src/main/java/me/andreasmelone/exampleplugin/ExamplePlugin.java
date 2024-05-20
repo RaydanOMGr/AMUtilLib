@@ -13,6 +13,8 @@ public final class ExamplePlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        AMUtilLib.register(this);
+
         saveDefaultConfig();
         config = getConfig();
 
@@ -21,15 +23,16 @@ public final class ExamplePlugin extends JavaPlugin {
         Items.register();
         Blocks.register();
 
-        AMUtilLib.getInstance().registerCommands(this, "giveitem");
-        AMUtilLib.getInstance().registerEvents(this);
-
         CommandUtil.registerTabExecutor(this, new ReloadCommand(this), "reloadexample");
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+    }
+
+    public AMUtilLib getAMUtilLib() {
+        return AMUtilLib.getInstance(this);
     }
 
     public static ExamplePlugin getInstance() {

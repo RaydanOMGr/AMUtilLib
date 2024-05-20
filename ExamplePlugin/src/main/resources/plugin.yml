@@ -4,15 +4,10 @@ main: me.andreasmelone.exampleplugin.ExamplePlugin
 api-version: '1.19'
 
 commands:
-  giveitem:
-    permission: exampleplugin.giveitem
   reloadexample:
     permission: exampleplugin.reload
 
 permissions:
-  exampleplugin.giveitem:
-    description: Allows the player to give himself an item
-    default: op
   exampleplugin.reload:
     description: Allows the player to reload the config
     default: op

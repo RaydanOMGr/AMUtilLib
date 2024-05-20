@@ -1,15 +1,13 @@
 package me.andreasmelone.exampleplugin;
 
 import me.andreasmelone.amutillib.blocks.AMBlock;
-import me.andreasmelone.amutillib.blocks.BlockRegister;
-import me.andreasmelone.amutillib.i18n.TranslationKey;
 import me.andreasmelone.amutillib.registry.RegisteredObject;
 import me.andreasmelone.amutillib.utils.Util;
 
 public class Blocks {
     static ExamplePlugin plugin = ExamplePlugin.getInstance();
 
-    public static final RegisteredObject<AMBlock> exampleBlock = BlockRegister.getInstance().register(
+    public static final RegisteredObject<AMBlock> exampleBlock = plugin.getAMUtilLib().getBlockRegister().register(
             AMBlock.from(Items.exampleBlockItem.get())
     );
 
